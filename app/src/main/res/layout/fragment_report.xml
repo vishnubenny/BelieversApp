@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="collectionReport"
+            type="com.fabsv.believers.believers.data.source.remote.model.CollectionReportResponse" />
+
+        <variable
+            name="quorumReport"
+            type="com.fabsv.believers.believers.data.source.remote.model.QuorumReportResponse" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_collection_report"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/small_padding"
+                android:layout_marginTop="@dimen/small_padding"
+                android:layout_marginEnd="@dimen/small_padding"
+                android:background="#FFF176"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:id="@+id/layout_member_count"
+                    style="@style/style_layout_fragment_report"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        style="@style/style_text_view_hint_report"
+                        android:text="@string/member_count" />
+
+                    <TextView
+                        style="@style/style_text_view_data_report"
+                        android:text="@{Integer.toString(collectionReport.memberCount)}" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/style_layout_fragment_report"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_member_count">
+
+                    <TextView
+                        style="@style/style_text_view_hint_report"
+                        android:text="@string/reg_fee_amount" />
+
+                    <TextView
+                        android:id="@+id/text_view_register_fee_amount"
+                        style="@style/style_text_view_data_report"
+                        android:text="@{Integer.toString(collectionReport.regFeeAmount)}" />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_quorum_report"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/small_padding"
+                android:layout_marginTop="@dimen/small_padding"
+                android:layout_marginRight="@dimen/small_padding"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layout_collection_report">
+
+                <LinearLayout
+                    android:id="@+id/layout_clergy_count"
+                    style="@style/style_layout_fragment_report"
+                    android:background="#FFF176"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        style="@style/style_text_view_hint_report"
+                        android:text="@string/clergy_count" />
+
+                    <TextView
+                        style="@style/style_text_view_data_report"
+                        android:text="@{Integer.toString(quorumReport.clergyCount)}" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_clergy_present_count"
+                    style="@style/style_layout_fragment_report"
+                    android:background="#FFF176"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_clergy_count">
+
+                    <TextView
+                        style="@style/style_text_view_hint_report"
+                        android:text="@string/clergy_present_count" />
+
+                    <TextView
+                        style="@style/style_text_view_data_report"
+                        android:text="@{Integer.toString(quorumReport.clergyPresentCount)}" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_clergy_perc"
+                    style="@style/style_layout_fragment_report"
+                    android:background="#FFF176"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_clergy_present_count">
+
+                    <TextView
+                        style="@style/style_text_view_hint_report"
+                        android:text="@string/clergy_perc" />
+
+                    <TextView
+                        style="@style/style_text_view_data_report"
+                        android:text="@{Float.toString(quorumReport.clergyPerc)}" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/layout_laymen_count"
+                    style="@style/style_layout_fragment_report"
+                    android:layout_marginTop="@dimen/small_padding"
+                    android:background="#AED581"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_clergy_perc">
+
+                    <TextView
+                        style="@style/style_text_view_hint_report"
+                        android:text="@string/laymen_count" />
+
+                    <TextView
+                        style="@style/style_text_view_data_report"
+                        android:text="@{Integer.toString(quorumReport.laymenCount)}" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_laymen_present_count"
+                    style="@style/style_layout_fragment_report"
+                    android:background="#AED581"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_laymen_count">
+
+                    <TextView
+                        style="@style/style_text_view_hint_report"
+                        android:text="@string/laymen_present_count" />
+
+                    <TextView
+                        style="@style/style_text_view_data_report"
+                        android:text="@{Integer.toString(quorumReport.laymenPresentCount)}" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_laymen_perc"
+                    style="@style/style_layout_fragment_report"
+                    android:background="#AED581"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_laymen_present_count">
+
+                    <TextView
+                        style="@style/style_text_view_hint_report"
+                        android:text="@string/laymen_perc" />
+
+                    <TextView
+                        style="@style/style_text_view_data_report"
+                        android:text="@{Float.toString(quorumReport.laymenPerc)}" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_laymen_total_member_count"
+                    style="@style/style_layout_fragment_report"
+                    android:layout_marginTop="@dimen/small_padding"
+                    android:background="#7986CB"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_laymen_perc">
+
+                    <TextView
+                        style="@style/style_text_view_hint_report"
+                        android:text="@string/total_member_count" />
+
+                    <TextView
+                        style="@style/style_text_view_data_report"
+                        android:text="@{Integer.toString(quorumReport.totalMemberCount)}" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_present_member_count"
+                    style="@style/style_layout_fragment_report"
+                    android:background="#7986CB"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_laymen_total_member_count">
+
+                    <TextView
+                        style="@style/style_text_view_hint_report"
+                        android:text="@string/present_member_count" />
+
+                    <TextView
+                        style="@style/style_text_view_data_report"
+                        android:text="@{Integer.toString(quorumReport.presentMemberCount)}" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_quorum_perc"
+                    style="@style/style_layout_fragment_report"
+                    android:background="#7986CB"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_present_member_count">
+
+                    <TextView
+                        style="@style/style_text_view_hint_report"
+                        android:text="@string/quorum_percentage" />
+
+                    <TextView
+                        style="@style/style_text_view_data_report"
+                        android:text="@{Float.toString(quorumReport.quorumPerc)}" />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>
