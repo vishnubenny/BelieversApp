@@ -46,6 +46,7 @@ class MainActivity : MvpActivity<MainContract.MainView, MainContract.MainPresent
 
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (AppConstants.PermissionConstants.REQUEST_ID_CAMERA == requestCode) {
             if (PackageManager.PERMISSION_GRANTED == grantResults[0]) {
                 getCurrentFragmentInstance()?.let { presenter?.onCameraPermissionGrantedForScan(it) }

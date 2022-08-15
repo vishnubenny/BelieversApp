@@ -41,7 +41,7 @@ abstract class MvpFragment<V : MvpView, P : MvpPresenter<V>> : BaseFragment(), M
         onPrepareFragment(view)
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is MvpActivity<*, *>) {
             mActivity = context
