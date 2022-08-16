@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
 
 class ApiClient {
     companion object {
-        private val BASE_URL = AppConstants.ApiConstants.BASE_URL
+        private val BASE_URL = AppConstants.ApiConstants.baseUrl
         private var retrofit: Retrofit? = null
 
         var okHttpClient = OkHttpClient.Builder()

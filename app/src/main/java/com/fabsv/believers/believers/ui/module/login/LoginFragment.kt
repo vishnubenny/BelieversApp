@@ -1,17 +1,24 @@
 package com.fabsv.believers.believers.ui.module.login
 
 import android.content.Context
+import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.AppCompatEditText
 import com.fabsv.believers.believers.R
 import com.fabsv.believers.believers.data.source.remote.model.LoginRequest
 import com.fabsv.believers.believers.ui.base.MvpFragment
+import com.fabsv.believers.believers.util.extension.isValidUrl
 import com.fabsv.believers.believers.util.methods.UtilityMethods
 import com.jakewharton.rxbinding2.InitialValueObservable
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_login.*
-
 
 class LoginFragment : MvpFragment<LoginContract.LoginView, LoginContract.LoginPresenter>(),
         LoginContract.LoginView {
@@ -166,6 +173,45 @@ class LoginFragment : MvpFragment<LoginContract.LoginView, LoginContract.LoginPr
     private fun getPassword() = edit_text_password.text.toString()
 
     private fun getMobile() = edit_text_phone_number.text.toString()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.login_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menuChangeUrl -> showChangeUrlDialog()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun showChangeUrlDialog() {
+        val view = layoutInflater.inflate(R.layout.dialog_change_url, null)
+        val edtTxtBaseUrl = view.findViewById<AppCompatEditText>(R.id.edtTxtBaseUrl)
+        edtTxtBaseUrl.setText(getAppPreferencesHelper().getAppBaseUrl())
+        edtTxtBaseUrl.setSelection(edtTxtBaseUrl.text?.toString().orEmpty().length)
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(view)
+            .setCancelable(false)
+            .create()
+        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "Save") { p0, _ ->
+            val urlString = edtTxtBaseUrl.text?.toString().orEmpty()
+            if (urlString.isValidUrl()) {
+                getAppPreferencesHelper().setAppBaseUrl(edtTxtBaseUrl.text?.toString().orEmpty())
+                p0.dismiss()
+                Toast.makeText(requireContext(), "Base URL updated", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "Invalid URL format", Toast.LENGTH_SHORT).show()
+            }
+        }
+        dialog.show()
+    }
 
     companion object {
         fun getInstance(): LoginFragment {

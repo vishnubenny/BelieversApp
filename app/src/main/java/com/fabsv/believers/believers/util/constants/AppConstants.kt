@@ -31,6 +31,7 @@ class AppConstants {
 //            const val BASE_URL = "http://172.17.17.14:8071/api/MandalamMobilApp/" //live //updated on 20190708
             const val BASE_URL = "http://192.168.1.20:8005/api/MandalamMobilApp/" //debug //updated on 20190709
 //            const val BASE_URL = "http://www.mocky.io/v2/"
+            var baseUrl = BASE_URL
         }
     }
 

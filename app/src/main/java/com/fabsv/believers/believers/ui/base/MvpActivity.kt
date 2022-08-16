@@ -14,6 +14,7 @@ import com.fabsv.believers.believers.R
 import com.fabsv.believers.believers.data.source.local.prefs.AppPreferencesHelper
 import com.fabsv.believers.believers.ui.utils.ProgressDialog
 import com.fabsv.believers.believers.ui.utils.setCustomToastProperties
+import com.fabsv.believers.believers.util.constants.AppConstants.ApiConstants.Companion.baseUrl
 import com.fabsv.believers.believers.util.methods.UtilityMethods
 import com.lv.note.personalnote.ui.base.MvpPresenter
 import kotlinx.android.synthetic.main.activity_main.*
@@ -35,7 +36,12 @@ abstract class MvpActivity<V : MvpView, P : MvpPresenter<V>> : BaseActivity(), M
 
         @Suppress("UNCHECKED_CAST")
         presenter!!.attachView(this as V)
+        prepareAppConstants()
         onPrepareActivity()
+    }
+
+    private fun prepareAppConstants() {
+        baseUrl = appPreferenceHelper.getAppBaseUrl()
     }
 
     override fun onDestroy() {

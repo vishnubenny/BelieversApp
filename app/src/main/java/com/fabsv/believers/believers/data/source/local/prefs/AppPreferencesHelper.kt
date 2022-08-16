@@ -3,26 +3,29 @@ package com.fabsv.believers.believers.data.source.local.prefs
 import android.content.Context
 import com.fabsv.believers.believers.data.source.remote.model.LoginResponse
 import com.fabsv.believers.believers.util.constants.AppConstants
+import com.fabsv.believers.believers.util.constants.AppConstants.ApiConstants.Companion.baseUrl
 import com.fabsv.believers.believers.util.prefs.SharedPreferenceManager
+
+private const val PREF_KEY_APP_BASE_URL_IP = "PREF_KEY_APP_BASE_URL"
+private const val DEFAULT_STRING_VALUE = ""
 
 class AppPreferencesHelper(context: Context) {
     private var sharedPreferencesManager: SharedPreferenceManager
+
     /*
     Pref keys listing
      */
     private var PREF_KEY_IS_LOGGED_IN: String = "PREF_KEY_IS_LOGGED_IN"
-    private var PREF_KEY_LOGGED_IN_USER_PHONE_NUMBER: String = "PREF_KEY_LOGGED_IN_USER_PHONE_NUMBER"
+    private var PREF_KEY_LOGGED_IN_USER_PHONE_NUMBER: String =
+        "PREF_KEY_LOGGED_IN_USER_PHONE_NUMBER"
     private var PREF_KEY_LOGGED_IN_USER_USERNAME: String = "PREF_KEY_LOGGED_IN_USER_USERNAME"
     private var PREF_KEY_USER_ID: String = "PREF_KEY_USER_ID"
     private var PREF_KEY_MANDALAM_ID: String = "PREF_KEY_MANDALAM_ID"
     private var PREF_KEY_MAEETING_SL_NO: String = "PREF_KEY_MAEETING_SL_NO"
-    /*
-    Default string values
-     */
-    private var DEFAULT_STRING_VALUE: String = ""
 
     init {
-        this.sharedPreferencesManager = SharedPreferenceManager(context, AppConstants.Prefs.APP_PREFERENCES)
+        this.sharedPreferencesManager =
+            SharedPreferenceManager(context, AppConstants.Prefs.APP_PREFERENCES)
     }
 
     companion object {
@@ -88,5 +91,13 @@ class AppPreferencesHelper(context: Context) {
         loginResponse.meetingSlNo = getMeetingSlNo()
         loginResponse.userName = getLoggedInUserUsername()
         return loginResponse
+    }
+
+    fun getAppBaseUrl(): String {
+        return sharedPreferencesManager.getValue(PREF_KEY_APP_BASE_URL_IP, baseUrl)
+    }
+
+    fun setAppBaseUrl(baseUrl: String) {
+        sharedPreferencesManager.setValue(PREF_KEY_APP_BASE_URL_IP, baseUrl)
     }
 }
